@@ -20,6 +20,12 @@
 
 <br/>
 
+<p align="center">
+  <img src="./demo.gif" alt="TokenDiet Terminal Demo" width="800"/>
+</p>
+
+<br/>
+
 [Features](#-key-features) •
 [Architecture](#-system-architecture) •
 [Benchmarks](#-compression-benchmarks) •
