@@ -1,0 +1,13 @@
+{
+  "name": "@tokendiet/wasm",
+  "version": "0.1.0",
+  "description": "WebAssembly bindings for TokenDiet",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "tokendiet_bg.wasm"
+  ],
+  "license": "MIT"
+}
