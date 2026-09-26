@@ -3,4 +3,8 @@ dist/
 target/
 *.log
 .DS_Store
-docs/plans/
+docs/
+scripts/
+*.tape
+demo_payload.json
+temp_frames/
