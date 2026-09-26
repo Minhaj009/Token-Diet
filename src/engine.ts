@@ -67,7 +67,7 @@ export function compressPrompt(rawInput: string, options: CompressOptions = {}):
   let header = '';
   let dictionary: Record<string, string> = {};
 
-  if (options.symbolAliasing !== false) {
+  if (options.symbolAliasing) {
     const aliaser = new SymbolAliaser();
     const aliasResult = aliaser.alias(transformed);
     if (Object.keys(aliasResult.dictionary).length > 0) {
