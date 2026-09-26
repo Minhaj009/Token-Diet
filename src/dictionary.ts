@@ -2,6 +2,7 @@ export interface AliasOptions {
   minLength?: number;
   minOccurrences?: number;
   prefix?: string;
+  headerPrefix?: string;
 }
 
 export interface AliasResult {
@@ -14,11 +15,13 @@ export class SymbolAliaser {
   private minLength: number;
   private minOccurrences: number;
   private prefix: string;
+  private headerPrefix: string;
 
   constructor(options: AliasOptions = {}) {
     this.minLength = options.minLength ?? 4;
     this.minOccurrences = options.minOccurrences ?? 2;
     this.prefix = options.prefix ?? '$';
+    this.headerPrefix = options.headerPrefix ?? 'Aliases: ';
   }
 
   private generateAlias(index: number): string {
@@ -44,7 +47,7 @@ export class SymbolAliaser {
       }
     }
 
-    // Filter candidates where token/char savings beat dictionary header cost
+    // Filter candidates where character/token savings beat header overhead
     const candidates = Array.from(frequency.entries())
       .filter(([_, count]) => count >= this.minOccurrences)
       .map(([word, count]) => {
@@ -72,7 +75,8 @@ export class SymbolAliaser {
       aliased = aliased.replace(replaceRegex, aliasToken);
     });
 
-    const header = `[TokenDiet Grammar: ${headerParts.join(',')}]\n`;
+    const header = `${this.headerPrefix}${headerParts.join(',')}\n`;
+
     return {
       aliased,
       header,
@@ -82,10 +86,10 @@ export class SymbolAliaser {
 
   public restore(text: string, dictionary: Record<string, string>): string {
     let restored = text;
-    // Strip header if present
-    restored = restored.replace(/^\[TokenDiet Grammar: [^\]]+\]\n?/, '');
+    // Strip header if present (supports both 'Aliases: ...' and '[TokenDiet Grammar: ...]')
+    restored = restored.replace(/^(?:Aliases: |\[TokenDiet Grammar: )[^\]\n]+\]?\n?/, '');
 
-    // Replace aliases in reverse order of key length to avoid prefix collisions
+    // Replace aliases in reverse order of key length
     const sortedAliases = Object.keys(dictionary).sort((a, b) => b.length - a.length);
     for (const alias of sortedAliases) {
       const original = dictionary[alias];
