@@ -1,0 +1,35 @@
+{
+  "name": "tokendiet",
+  "version": "0.1.0",
+  "description": "Lossless Prompt & AST Token Compressor for LLMs",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "tokendiet": "./bin/tokendiet.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "token-reduction",
+    "prompt-compression",
+    "llm-optimization",
+    "ast-compressor",
+    "lossless"
+  ],
+  "author": "TokenDiet Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
